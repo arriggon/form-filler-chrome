@@ -1,17 +1,19 @@
-let active = false;
+function performTest() {
+    // CONSTANTS
+    const clickEvent = new Event('click');
 
-function reddenPage(color) {
-    document.body.style.backgroundColor = color;
+    // FUNCTION DEFINITIONS
+    function getElementByXpath(path) {
+        return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    }
+
+    // EXECUTION
+    getElementByXpath("//input[@value='Google Search']").dispatchEvent(clickEvent);
 }
 
 chrome.action.onClicked.addListener((tab) => {
-    active = !active;
-
-    let color = active ? 'red' : 'white';
-
     chrome.scripting.executeScript({
         target: { tabId: tab.id },
-        function: reddenPage,
-        args: [ color ]
+        function: performTest,
     });
 });
