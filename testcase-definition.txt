@@ -1,0 +1,10 @@
+Structure                       <event> {<element-identifier> <property-value>} <...parameters>
+!!                              Comment
+
+Events                      Parameters
+    click 
+    enter                      
+    input                       text
+    wait                        milliseconds
+
+Element-Identifier              <node-type>:<property>
