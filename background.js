@@ -5,6 +5,10 @@ async function performTest() {
         bubbles: true,
         key: 'Enter'
     });
+    const inputEvent = new Event('input', {
+        bubbles: true,
+        cancelable: true
+    });
 
     // ELEMENT INTERACTION DEFINITIONS
     // get an element-node and dispatch a click-event
@@ -14,7 +18,9 @@ async function performTest() {
 
     // get an element-node and input text as value
     function inputTextOnElement(element, text) {
-        getElementByXpath(element).value = text;
+        const el = getElementByXpath(element);
+        el.value = text;
+        el.dispatchEvent(inputEvent);
     }
 
     // get an element-node and press enter
@@ -65,7 +71,7 @@ async function performTest() {
         }
         properties = properties.substring(0, properties.length-1);
 
-        return `//${element_identifier_split[0]}[@${element_identifier_split[1]}='${properties}']`;
+        return `//${element_identifier_split[0]}[${element_identifier_split[1] === 'text()' ? '' : '@'}${element_identifier_split[1]}='${properties}']`;
     }
 
     function getParametersWithElementIdentifier(tokens) {
